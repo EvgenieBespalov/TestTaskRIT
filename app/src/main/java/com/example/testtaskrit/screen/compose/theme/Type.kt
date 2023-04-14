@@ -1,4 +1,4 @@
-package com.example.testtaskrit.ui.theme
+package com.example.testtaskrit.screen.compose.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

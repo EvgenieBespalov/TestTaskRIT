@@ -1,4 +1,4 @@
-package com.example.testtaskrit.ui.theme
+package com.example.testtaskrit.screen.compose.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes
