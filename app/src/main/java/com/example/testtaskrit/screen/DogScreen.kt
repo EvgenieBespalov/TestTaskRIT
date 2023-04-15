@@ -5,11 +5,11 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -17,10 +17,28 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
+import com.example.testtaskrit.domain.entity.DogEntity
+import com.example.testtaskrit.presentation.DogScreenUiState
+import com.example.testtaskrit.presentation.DogScreenViewModel
 import com.example.testtaskrit.screen.compose.theme.colorPrimaryDark
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun DogScreen(){
+fun DogScreen(
+    viewModel: DogScreenViewModel = koinViewModel()
+){
+    val state by viewModel.state.observeAsState(DogScreenUiState.Initial)
+
+    when(state){
+        DogScreenUiState.Initial    -> Unit
+        DogScreenUiState.Loading    -> DogScreenLoadind()
+        is DogScreenUiState.Content -> DogScreenContent(dog = (state as DogScreenUiState.Content).dog)
+        is DogScreenUiState.Error   -> DogScreenError(errorText = (state as DogScreenUiState.Error).message.orEmpty())
+    }
+}
+
+@Composable
+fun DogScreenContent(dog: DogEntity){
     Column() {
         Row(
             modifier = Modifier
@@ -64,4 +82,28 @@ fun DogScreen(){
             )
         }
     }
+}
+
+@Composable
+fun DogScreenError(errorText: String){
+    CenteredColumn {
+        Text(text = errorText)
+    }
+}
+
+@Composable
+fun DogScreenLoadind(){
+    CenteredColumn {
+        CircularProgressIndicator()
+    }
+}
+
+@Composable
+fun CenteredColumn(content: @Composable ColumnScope.() -> Unit){
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+        content = content
+    )
 }
