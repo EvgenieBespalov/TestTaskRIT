@@ -1,7 +1,9 @@
-package com.example.testtaskrit.screen.compose
+package com.example.testtaskrit.screen
 
 import androidx.compose.runtime.Composable
 import com.example.testtaskrit.R
+import com.example.testtaskrit.screen.compose.ApiScreen
+import com.example.testtaskrit.screen.compose.SettingsScreen
 
 typealias ComposableFun = @Composable () -> Unit
 
