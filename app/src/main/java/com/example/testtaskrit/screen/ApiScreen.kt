@@ -32,49 +32,26 @@ fun ApiScreen() {
     ) {
         val navController = rememberNavController()
 
-        ApiTextField()
+        // Button(onClick = { navController.navigate(Routes.Dog.route) }) { Text(text = "Dog", fontSize = 25.sp) }
+        // Button(onClick = { navController.navigate(Routes.Nationalize.route) }) { Text(text = "Nat", fontSize = 25.sp) }
 
-        Button(onClick = { navController.navigate(Routes.Dog.route) }) { Text(text = "Dog", fontSize = 25.sp) }
-        Button(onClick = { navController.navigate(Routes.Nationalize.route) }) { Text(text = "Nat", fontSize = 25.sp) }
-
-        NavHost(navController = navController, startDestination = Routes.Dog.route) {
-            composable(Routes.Nationalize.route) {
+        NavHost(navController = navController, startDestination = Routes.DogScreenRoute.route) {
+            composable(Routes.NationalizeScreenRoute.route) {
                 NationalizeScreen()
             }
-            composable(Routes.Dog.route) {
-                DogScreen()
+            composable(Routes.DogScreenRoute.route) {
+                DogScreen(navController)
             }
+            /*composable(Routes.DogImageScreenRoute.route + "/{dogImage}") { navBackStack ->
+                val dogImage = navBackStack.arguments?.getString("dogImage")
+                requireNotNull(dogImage) { "dog parameter wasn't found. Please make sure it's set!" }
+                DogImageScreen(dogImage)
+            }*/
         }
     }
 }
 
-@Composable
-fun ApiTextField(){
-    Column() {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(all = 16.dp),
-            horizontalArrangement = Arrangement.Center
-        ){
-            var text by rememberSaveable { mutableStateOf("Api name") }
 
-            TextField(
-                value = text,
-                onValueChange = {
-                    text = it
-                },
-                shape = MaterialTheme.shapes.small.copy(
-                    topEnd = CornerSize(15.dp),
-                    topStart = CornerSize(15.dp),
-                    bottomEnd = CornerSize(15.dp),
-                    bottomStart = CornerSize(15.dp)),
-                textStyle = TextStyle(fontSize =  25.sp),
-                colors = TextFieldDefaults.textFieldColors(textColor = Color.Black, backgroundColor = Color.White)
-            )
-        }
-    }
-}
 
 @Preview(showBackground = true)
 @Composable

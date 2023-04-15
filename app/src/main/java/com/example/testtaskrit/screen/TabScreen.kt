@@ -33,9 +33,7 @@ fun MainScreen() {
 fun Tabs(tabs: List<TabItem>, pagerState: PagerState) {
     val scope = rememberCoroutineScope()
     TabRow(
-        // Our selected tab is our current page
         selectedTabIndex = pagerState.currentPage,
-        // Override the indicator, using the provided pagerTabIndicatorOffset modifier
         backgroundColor = colorPrimaryDark,
         contentColor = Color.White,
         indicator = { tabPositions ->
@@ -43,9 +41,7 @@ fun Tabs(tabs: List<TabItem>, pagerState: PagerState) {
                 Modifier.pagerTabIndicatorOffset(pagerState, tabPositions)
             )
         }) {
-        // Add tabs for all of our pages
         tabs.forEachIndexed { index, tab ->
-            // OR Tab()
             LeadingIconTab(
                 icon = { Icon(painter = painterResource(id = tab.icon), contentDescription = "") },
                 text = { Text(tab.title) },

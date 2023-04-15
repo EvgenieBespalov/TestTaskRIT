@@ -5,6 +5,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface DogApi {
-    @GET("")
+    @GET("random")
     suspend fun getRandomDog(): DogModel
 }

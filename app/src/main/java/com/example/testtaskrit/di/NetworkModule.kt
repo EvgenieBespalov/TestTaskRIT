@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import java.util.concurrent.TimeUnit
 
-private const val LOANS_BASE_URL = "https://dog.ceo/api/breeds/image/random"
+private const val LOANS_BASE_URL = "https://dog.ceo/api/breeds/image/"
 private const val CONNECT_TIMEOUT = 10L
 private const val WRITE_TIMEOUT = 10L
 private const val READ_TIMEOUT = 10L
