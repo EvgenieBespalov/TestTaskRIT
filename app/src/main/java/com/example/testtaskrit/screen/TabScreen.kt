@@ -3,14 +3,13 @@ package com.example.testtaskrit.screen.compose
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
-import androidx.compose.material.R
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.testtaskrit.screen.TabItem
 import com.example.testtaskrit.screen.compose.theme.colorPrimaryDark
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.launch
@@ -33,7 +32,6 @@ fun MainScreen() {
 @Composable
 fun Tabs(tabs: List<TabItem>, pagerState: PagerState) {
     val scope = rememberCoroutineScope()
-    // OR ScrollableTabRow()
     TabRow(
         // Our selected tab is our current page
         selectedTabIndex = pagerState.currentPage,
