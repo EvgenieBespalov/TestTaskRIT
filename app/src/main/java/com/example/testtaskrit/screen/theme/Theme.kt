@@ -5,6 +5,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.testtaskrit.screen.TabItem
+import com.example.testtaskrit.screen.compose.TabsContent
+import com.google.accompanist.pager.rememberPagerState
 
 private val DarkColorPalette = darkColors(
     primary = colorPrimary,
@@ -29,11 +33,7 @@ private val LightColorPalette = lightColors(
 
 @Composable
 fun TestTaskRITTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-    val colors = if (darkTheme) {
-        DarkColorPalette
-    } else {
-        LightColorPalette
-    }
+    val colors = DarkColorPalette
 
     MaterialTheme(
         colors = colors,
