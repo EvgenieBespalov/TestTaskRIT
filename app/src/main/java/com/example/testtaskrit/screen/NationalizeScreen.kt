@@ -30,12 +30,7 @@ fun NationalizeScreen(
     val openDialog = remember { mutableStateOf(false) }
 
     Column() {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(all = 16.dp),
-            horizontalArrangement = Arrangement.Center
-        ){
+        CenteredRow{
             Button(
                 onClick = {
                     var names = arrayListOf("michael", "matthew")
@@ -73,24 +68,14 @@ fun NationalizeScreen(
 @Composable
 fun NationalizeScreenContent(nationalizes: List<NationalizeEntity>, openDialog: MutableState<Boolean>){
     Column() {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(all = 16.dp),
-            horizontalArrangement = Arrangement.Center
-        ){
+        CenteredRow{
             Text(
                 text = "Nationalize API",
                 fontSize=25.sp,
                 color = Color.White
             )
         }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(all = 16.dp),
-            horizontalArrangement = Arrangement.Center
-        ){
+        CenteredRow{
             if (openDialog.value) {
                 Dialog(
                     //properties = DialogProperties(usePlatformDefaultWidth = true),

@@ -1,14 +1,12 @@
 package com.example.testtaskrit.screen
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun ScreenError(errorText: String){
@@ -30,6 +28,17 @@ fun CenteredColumn(content: @Composable ColumnScope.() -> Unit){
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
+        content = content
+    )
+}
+
+@Composable
+fun CenteredRow(content: @Composable RowScope.() -> Unit){
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(all = 16.dp),
+        horizontalArrangement = Arrangement.Center,
         content = content
     )
 }

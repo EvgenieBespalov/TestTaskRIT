@@ -35,12 +35,7 @@ fun DogScreen(
     val scope = rememberCoroutineScope()
 
     Column() {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(all = 16.dp),
-            horizontalArrangement = Arrangement.Center
-        ){
+        CenteredRow{
             Button(
                 onClick = {
                     scope.launch {
@@ -77,24 +72,14 @@ fun DogScreenContent(dog: DogEntity, navController: NavHostController){
         modifier = Modifier
         .padding(top = 80.dp)
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(all = 16.dp),
-            horizontalArrangement = Arrangement.Center
-        ){
+        CenteredRow{
             Text(
                 text = "Dog API",
                 fontSize=25.sp,
                 color = Color.White
             )
         }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(all = 16.dp),
-            horizontalArrangement = Arrangement.Center
-        ){
+        CenteredRow{
             val asyncPainter =
                 rememberAsyncImagePainter(dog.message)
 
