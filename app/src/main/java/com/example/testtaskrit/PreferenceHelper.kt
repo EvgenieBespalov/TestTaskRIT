@@ -16,7 +16,7 @@ object PreferenceHelper {
     }
 
     var SharedPreferences.settings
-        get() = getString(SELECT_SCREEN, "")
+        get() = getString(SELECT_SCREEN, null)
         set(value) {
             editMe {
                 it.putString(SELECT_SCREEN, value)
