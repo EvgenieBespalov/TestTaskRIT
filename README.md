@@ -15,3 +15,5 @@
 <img src="https://user-images.githubusercontent.com/95974491/232329559-9ec0bc09-718f-4e41-80f7-29ea8aa305ef.png" height="600"/>
 <p>Экран настроек, где можно выбрать АПИ.</p>
 <img src="https://user-images.githubusercontent.com/95974491/232329660-ae5475e7-8af9-45f9-8eef-22b9a9ef7154.png" height="600"/>
+<h1 align="left">Стек технологий</h1>
+<p>Jetpack Compose, Retrofit2, Koin, Coil, Coroutines, Navigation Compose.</p>
