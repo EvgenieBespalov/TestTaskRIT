@@ -5,8 +5,6 @@
 <img src="https://user-images.githubusercontent.com/95974491/232329231-944b2478-5fbb-4d85-baf4-028b2dfc3b99.png" height="600"/>
 <p>Экран работы с апи nationalize.</p>
 <img src="https://user-images.githubusercontent.com/95974491/232329358-d8127650-be16-4f6d-b5b1-5561efbaad11.png" height="600"/>
-<p>Экран работы с апи nationalize.</p>
-<img src="https://user-images.githubusercontent.com/95974491/232329358-d8127650-be16-4f6d-b5b1-5561efbaad11.png" height="600"/>
 <p>В текстовое поля вводятся имена, ввод через запятую без пробелов. При нажатии на кнопку будет выведено окно со списком имен, стран и вероятности имени.</p>
 <img src="https://user-images.githubusercontent.com/95974491/232329480-aed81781-bd03-44cf-bdf8-b58873add023.png" height="600"/>
 <p>Экран работы с апи dog. При нажатии на кнопку будет загружено случайное изображение собаки.</p>
