@@ -36,7 +36,6 @@ fun NationalizeScreen(
     val scope = rememberCoroutineScope()
     val openDialog = remember { mutableStateOf(false) }
     var textFieldName by remember { mutableStateOf("") }
-    //var listName by remember { mutableStateOf(ArrayList<String>()) }
 
     Column() {
         CenteredRow{

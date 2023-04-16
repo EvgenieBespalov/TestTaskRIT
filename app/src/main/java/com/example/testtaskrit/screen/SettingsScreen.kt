@@ -4,13 +4,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
-import androidx.compose.material.RadioButton
-import androidx.compose.material.RadioButtonDefaults
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
@@ -18,9 +17,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.testtaskrit.PreferenceHelper.CUSTOM_PREF_NAME
+import com.example.testtaskrit.PreferenceHelper.customPreference
+import com.example.testtaskrit.PreferenceHelper.settings
 import com.example.testtaskrit.R
 import com.example.testtaskrit.screen.TabItem
+import com.example.testtaskrit.screen.compose.theme.colorAccent
 import com.example.testtaskrit.screen.compose.theme.colorPrimary
+import com.example.testtaskrit.screen.navigation.Routes
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 
@@ -38,9 +42,19 @@ fun SettingsScreen() {
 
 @Composable
 fun RadioGroup() {
-    val radioOptions = listOf("Dog API", "Nationalize API")
-
-    var selectedItem by remember { mutableStateOf(radioOptions[0]) }
+    val radioOptions = listOf("Dog API", "Nationalize API", "Another API")
+    val prefs = customPreference(LocalContext.current, CUSTOM_PREF_NAME)
+    prefs.settings = Routes.DogScreenRoute.route
+    var selectedItem by remember {
+        mutableStateOf(
+            when(prefs.settings){
+                Routes.DogScreenRoute.route -> "Dog API"
+                Routes.NationalizeScreenRoute.route -> "Nationalize API"
+                Routes.AnotherApiScreenRoute.route  -> "Another API"
+                else -> "Another API"
+            }
+        )
+    }
 
     Column(
         modifier = Modifier.selectableGroup()
@@ -52,20 +66,30 @@ fun RadioGroup() {
                     .height(56.dp)
                     .selectable(
                         selected = (selectedItem == label),
-                        onClick = { selectedItem = label },
+                        onClick = {
+                            selectedItem = label
+                            when(selectedItem){
+                                "Dog API" -> prefs.settings = Routes.DogScreenRoute.route
+                                "Nationalize API" -> prefs.settings = Routes.NationalizeScreenRoute.route
+                                "Another API" -> prefs.settings = Routes.AnotherApiScreenRoute.route
+                            }
+                                  },
                         role = Role.RadioButton
                     )
                     .padding(horizontal = 16.dp)
             ) {
                 RadioButton(
-                    modifier = Modifier.padding(end = 16.dp).
-                            align(Alignment.CenterVertically),
+                    modifier = Modifier
+                        .padding(end = 16.dp)
+                        .align(Alignment.CenterVertically),
                     selected = (selectedItem == label),
                     colors = RadioButtonDefaults.colors(
                         selectedColor = Color.White,
                         unselectedColor = Color.Black
                     ),
-                    onClick = null
+                    onClick = {
+
+                    }
                 )
                 Text(
                     modifier = Modifier.align(Alignment.CenterVertically),

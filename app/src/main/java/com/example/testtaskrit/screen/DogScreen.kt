@@ -75,7 +75,7 @@ fun DogScreen(
 
 @Composable
 fun DogScreenContent(dog: DogEntity, navController: NavHostController){
-    Column(modifier = Modifier.padding(top = 80.dp)) {
+    Column(modifier = Modifier.padding(top = 160.dp)) {
         CenteredRow{
             val asyncPainter =
                 rememberAsyncImagePainter(dog.message)
