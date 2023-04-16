@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.testtaskrit.screen.TabItem
@@ -60,11 +61,11 @@ fun Tabs(tabs: List<TabItem>, pagerState: PagerState) {
 @Composable
 fun TabsContent(tabs: List<TabItem>, pagerState: PagerState) {
     HorizontalPager(state = pagerState, count = tabs.size) { page ->
+        val focusManager = LocalFocusManager.current
+        focusManager.clearFocus()
         tabs[page].screen()
     }
 }
-
-
 @OptIn(ExperimentalPagerApi::class)
 @Preview(showBackground = true)
 @Composable

@@ -1,20 +1,12 @@
 package com.example.testtaskrit.screen.compose
 
-import android.content.SharedPreferences
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CornerSize
-import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -30,8 +22,6 @@ import com.example.testtaskrit.screen.DogScreen
 import com.example.testtaskrit.screen.NationalizeScreen
 import com.example.testtaskrit.screen.navigation.Routes
 
-
- lateinit var prefs: SharedPreferences
 
 @Composable
 fun ApiScreen() {

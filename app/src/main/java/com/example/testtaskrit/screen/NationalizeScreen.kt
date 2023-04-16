@@ -1,10 +1,8 @@
 package com.example.testtaskrit.screen
 
-import android.widget.EditText
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,19 +10,19 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
 import com.example.testtaskrit.domain.entity.nationalize.CountryEntity
 import com.example.testtaskrit.domain.entity.nationalize.NationalizeEntity
 import com.example.testtaskrit.presentation.NationalizeScreenUiState
 import com.example.testtaskrit.presentation.NationalizeScreenViewModel
 import com.example.testtaskrit.screen.compose.theme.colorAccent
-import com.example.testtaskrit.screen.compose.theme.colorPrimaryDark
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -69,7 +67,6 @@ fun NationalizeScreen(
             Button(
                 onClick = {
                     var names = listOf(*textFieldName.split(",").toTypedArray())
-
                     scope.launch {
                         viewModel.getNationalize(names)
                     }

@@ -10,23 +10,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.testtaskrit.PreferenceHelper.CUSTOM_PREF_NAME
 import com.example.testtaskrit.PreferenceHelper.customPreference
 import com.example.testtaskrit.PreferenceHelper.settings
-import com.example.testtaskrit.R
-import com.example.testtaskrit.screen.TabItem
-import com.example.testtaskrit.screen.compose.theme.colorAccent
 import com.example.testtaskrit.screen.compose.theme.colorPrimary
 import com.example.testtaskrit.screen.navigation.Routes
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.rememberPagerState
 
 @Composable
 fun SettingsScreen() {
