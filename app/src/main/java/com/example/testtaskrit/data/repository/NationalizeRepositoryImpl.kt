@@ -9,7 +9,7 @@ class NationalizeRepositoryImpl(
     private val nationalizeApi: NationalizeApi,
     private val nationalizeConverter: NationalizeConverter,
 ) : NationalizeRepository {
-    override suspend fun getNationalize(names : ArrayList<String>): List<NationalizeEntity> =
+    override suspend fun getNationalize(names : List<String>): List<NationalizeEntity> =
         //nationalizeConverter.converNationalize(nationalizeApi.getNationalize(names))
         nationalizeApi.getNationalize(names).map { nationalizeConverter.converNationalize(it) }
 

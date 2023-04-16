@@ -36,6 +36,13 @@ fun DogScreen(
 
     Column() {
         CenteredRow{
+            Text(
+                text = "Dog API",
+                fontSize=25.sp,
+                color = Color.White
+            )
+        }
+        CenteredRow{
             Button(
                 onClick = {
                     scope.launch {
@@ -68,17 +75,7 @@ fun DogScreen(
 
 @Composable
 fun DogScreenContent(dog: DogEntity, navController: NavHostController){
-    Column(
-        modifier = Modifier
-        .padding(top = 80.dp)
-    ) {
-        CenteredRow{
-            Text(
-                text = "Dog API",
-                fontSize=25.sp,
-                color = Color.White
-            )
-        }
+    Column(modifier = Modifier.padding(top = 80.dp)) {
         CenteredRow{
             val asyncPainter =
                 rememberAsyncImagePainter(dog.message)

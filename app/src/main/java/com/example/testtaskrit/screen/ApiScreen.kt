@@ -42,12 +42,9 @@ fun ApiScreen() {
             composable(Routes.DogScreenRoute.route) {
                 DogScreen(navController)
             }
-            /*composable(Routes.DogImageScreenRoute.route + "/{dogImage}") { navBackStack ->
-                val dogImage = navBackStack.arguments?.getString("dogImage")
-                requireNotNull(dogImage) { "dog parameter wasn't found. Please make sure it's set!" }
-                DogImageScreen(dogImage)
-            }*/
         }
+
+       // navController.navigate(Routes.DogScreenRoute.route)
     }
 }
 

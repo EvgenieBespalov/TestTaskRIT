@@ -1,23 +1,30 @@
 package com.example.testtaskrit.screen
 
+import android.widget.EditText
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.example.testtaskrit.domain.entity.nationalize.CountryEntity
 import com.example.testtaskrit.domain.entity.nationalize.NationalizeEntity
 import com.example.testtaskrit.presentation.NationalizeScreenUiState
 import com.example.testtaskrit.presentation.NationalizeScreenViewModel
+import com.example.testtaskrit.screen.compose.theme.colorAccent
+import com.example.testtaskrit.screen.compose.theme.colorPrimaryDark
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -28,12 +35,41 @@ fun NationalizeScreen(
     val state by viewModel.state.observeAsState(NationalizeScreenUiState.Initial)
     val scope = rememberCoroutineScope()
     val openDialog = remember { mutableStateOf(false) }
+    var textFieldName by remember { mutableStateOf("") }
+    //var listName by remember { mutableStateOf(ArrayList<String>()) }
 
     Column() {
         CenteredRow{
+            Text(
+                text = "Nationalize API",
+                fontSize = 25.sp,
+                color = Color.White
+            )
+        }
+        CenteredRow{
+            TextField(
+                value = textFieldName,
+                onValueChange = { textFieldName = it },
+                colors = TextFieldDefaults.textFieldColors(
+                    textColor = Color.White,
+                    backgroundColor = colorAccent,
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    disabledIndicatorColor = Color.Transparent
+                ),
+                shape = MaterialTheme.shapes.small.copy(
+                    topEnd = CornerSize(15.dp),
+                    topStart = CornerSize(15.dp),
+                    bottomEnd = CornerSize(15.dp),
+                    bottomStart = CornerSize(15.dp)
+                ),
+                textStyle = TextStyle(fontSize = 25.sp),
+            )
+        }
+        CenteredRow{
             Button(
                 onClick = {
-                    var names = arrayListOf("michael", "matthew")
+                    var names = listOf(*textFieldName.split(",").toTypedArray())
 
                     scope.launch {
                         viewModel.getNationalize(names)
@@ -67,49 +103,49 @@ fun NationalizeScreen(
 
 @Composable
 fun NationalizeScreenContent(nationalizes: List<NationalizeEntity>, openDialog: MutableState<Boolean>){
-    Column() {
-        CenteredRow{
-            Text(
-                text = "Nationalize API",
-                fontSize=25.sp,
-                color = Color.White
-            )
-        }
+    Column(modifier = Modifier.padding(top = 80.dp)) {
         CenteredRow{
             if (openDialog.value) {
                 Dialog(
-                    //properties = DialogProperties(usePlatformDefaultWidth = true),
                     onDismissRequest = {
                         openDialog.value = false
                     }
                 ){
-                    Surface(//modifier = Modifier.fillMaxSize()
-                    ) {
-                        //Text(text = nationalize.toString())
-                        LazyColumn{
-                            items(nationalizes) { nationalize ->
-                                Text(
-                                    text = nationalize.name,
-                                    color = Color.Black
-                                )
-                                Divider(color = Color.Black, thickness = 5.dp)
-                                Column() {
-                                    LazyRow {
-                                        items(nationalize.country) { country ->
-                                            Text(
-                                                text = country.countryId,
-                                                color = Color.Black
-                                            )
-                                            Divider(color = Color.Black, thickness = 5.dp)
-                                        }
-                                    }
-                                }
+                    Surface(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight(),
+                        color = Color.White,
+                        shape = RoundedCornerShape(size = 10.dp),
 
+                    ) {
+                        LazyColumn(
+                            modifier = Modifier.padding(all = 5.dp)
+                        ) {
+                            nationalizes.forEach {
+                                item {
+                                    Text(
+                                        text = it.name,
+                                        color = Color.Black,
+                                        fontSize = 25.sp
+                                    )
+                                }
+                                CountryItem(it.country)
                             }
                         }
                     }
                 }
             }
         }
+    }
+}
+
+fun LazyListScope.CountryItem(countries: List<CountryEntity>) {
+    items(countries) {
+        Text(
+            text = "Country ID: ${it.countryId} \t\t Probability: ${it.probability}",
+            color = Color.Black,
+            fontSize = 15.sp
+        )
     }
 }

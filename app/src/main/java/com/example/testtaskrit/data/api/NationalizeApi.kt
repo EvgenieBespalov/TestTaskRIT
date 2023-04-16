@@ -9,5 +9,5 @@ interface NationalizeApi {
     /*@GET("name[]={name}")
     suspend fun getNationalize(@Path("name") name: String): NationalizeModel*/
     @GET("https://api.nationalize.io/")
-    suspend fun getNationalize(@Query("name[]") names : ArrayList<String>): List<NationalizeModel>
+    suspend fun getNationalize(@Query("name[]") names : List<String>): List<NationalizeModel>
 }

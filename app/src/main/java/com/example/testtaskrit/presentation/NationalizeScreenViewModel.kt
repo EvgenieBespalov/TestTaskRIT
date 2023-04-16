@@ -21,7 +21,7 @@ class NationalizeScreenViewModel(
         }
     }
 
-    fun getNationalize(names: ArrayList<String>){
+    fun getNationalize(names: List<String>){
         viewModelScope.launch {
             _state.value = NationalizeScreenUiState.Loading
 
