@@ -1,35 +1,33 @@
 package com.example.testtaskrit.screen
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.PixelFormat
-import android.view.View
-import android.view.WindowManager
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.AbstractComposeView
-import androidx.compose.ui.platform.LocalView
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.testtaskrit.presentation.DogScreenUiState
-import com.example.testtaskrit.presentation.DogScreenViewModel
-import com.example.testtaskrit.screen.compose.ApiScreen
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
+import com.example.testtaskrit.domain.entity.nationalize.NationalizeEntity
+import com.example.testtaskrit.presentation.NationalizeScreenUiState
+import com.example.testtaskrit.presentation.NationalizeScreenViewModel
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
-import java.util.*
 
 @Composable
 fun NationalizeScreen(
-    viewModel: DogScreenViewModel = koinViewModel()
+    viewModel: NationalizeScreenViewModel = koinViewModel()
 ){
-    val state by viewModel.state.observeAsState(DogScreenUiState.Initial)
+    val state by viewModel.state.observeAsState(NationalizeScreenUiState.Initial)
+    val scope = rememberCoroutineScope()
+    val openDialog = remember { mutableStateOf(false) }
 
     Column() {
         Row(
@@ -38,33 +36,15 @@ fun NationalizeScreen(
                 .padding(all = 16.dp),
             horizontalArrangement = Arrangement.Center
         ){
-            var text by rememberSaveable { mutableStateOf("Evgenie") }
-
-            TextField(
-                value = text,
-                onValueChange = {
-                    text = it
-                },
-                shape = MaterialTheme.shapes.small.copy(
-                    topEnd = CornerSize(15.dp),
-                    topStart = CornerSize(15.dp),
-                    bottomEnd = CornerSize(15.dp),
-                    bottomStart = CornerSize(15.dp)
-                ),
-                textStyle = TextStyle(fontSize =  25.sp),
-                colors = TextFieldDefaults.textFieldColors(textColor = Color.Black, backgroundColor = Color.White)
-            )
-        }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(all = 16.dp),
-            horizontalArrangement = Arrangement.Center
-        ){
-            val openDialog = remember { mutableStateOf(false) }
-
             Button(
-                onClick = {openDialog.value = true},
+                onClick = {
+                    var names = arrayListOf("michael", "matthew")
+
+                    scope.launch {
+                        viewModel.getNationalize(names)
+                    }
+                    openDialog.value = true
+                },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White, contentColor = Color.Black),
                 shape = MaterialTheme.shapes.small.copy(
                     topEnd = CornerSize(15.dp),
@@ -78,28 +58,73 @@ fun NationalizeScreen(
                     fontSize = 25.sp
                 )
             }
+        }
+    }
 
+    when(state){
+        NationalizeScreenUiState.Initial    -> Unit
+        NationalizeScreenUiState.Loading    -> ScreenLoadind()
+        is NationalizeScreenUiState.Content -> NationalizeScreenContent(nationalizes = (state as NationalizeScreenUiState.Content).nationalize, openDialog = openDialog)
+        is NationalizeScreenUiState.Error   -> ScreenError(errorText = (state as NationalizeScreenUiState.Error).message.orEmpty())
+    }
+}
+
+
+@Composable
+fun NationalizeScreenContent(nationalizes: List<NationalizeEntity>, openDialog: MutableState<Boolean>){
+    Column() {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(all = 16.dp),
+            horizontalArrangement = Arrangement.Center
+        ){
+            Text(
+                text = "Nationalize API",
+                fontSize=25.sp,
+                color = Color.White
+            )
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(all = 16.dp),
+            horizontalArrangement = Arrangement.Center
+        ){
             if (openDialog.value) {
-                AlertDialog(
+                Dialog(
+                    //properties = DialogProperties(usePlatformDefaultWidth = true),
                     onDismissRequest = {
                         openDialog.value = false
-                    },
-                    title = { Text(text = "Подтверждение действия") },
-                    text = { Text("Вы действительно хотите удалить выбранный элемент?") },
-                    buttons = {
-                        Row(
-                            modifier = Modifier.padding(all = 8.dp)
-                                .fillMaxWidth(),
-                            horizontalArrangement = Arrangement.Center
-                        ){
-                            Button(onClick = { openDialog.value = false }) {
-                                Text("OK", fontSize = 22.sp)
+                    }
+                ){
+                    Surface(//modifier = Modifier.fillMaxSize()
+                    ) {
+                        //Text(text = nationalize.toString())
+                        LazyColumn{
+                            items(nationalizes) { nationalize ->
+                                Text(
+                                    text = nationalize.name,
+                                    color = Color.Black
+                                )
+                                Divider(color = Color.Black, thickness = 5.dp)
+                                Column() {
+                                    LazyRow {
+                                        items(nationalize.country) { country ->
+                                            Text(
+                                                text = country.countryId,
+                                                color = Color.Black
+                                            )
+                                            Divider(color = Color.Black, thickness = 5.dp)
+                                        }
+                                    }
+                                }
+
                             }
                         }
                     }
-                )
+                }
             }
         }
     }
 }
-
