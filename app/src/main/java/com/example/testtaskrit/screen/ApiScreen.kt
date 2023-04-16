@@ -24,6 +24,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.testtaskrit.PreferenceHelper
 import com.example.testtaskrit.PreferenceHelper.settings
+import com.example.testtaskrit.screen.AnotherApiScreen
 import com.example.testtaskrit.screen.compose.theme.colorPrimary
 import com.example.testtaskrit.screen.DogScreen
 import com.example.testtaskrit.screen.NationalizeScreen
@@ -47,15 +48,15 @@ fun ApiScreen() {
             PreferenceHelper.CUSTOM_PREF_NAME
         )
 
-        NavHost(navController = navController, startDestination = Routes.ApiScreenRoute.route) {
+        NavHost(navController = navController, startDestination = Routes.DogScreenRoute.route) {
             composable(Routes.NationalizeScreenRoute.route) {
                 NationalizeScreen()
             }
             composable(Routes.DogScreenRoute.route) {
-                DogScreen(navController)
+                DogScreen()
             }
-            composable(Routes.ApiScreenRoute.route) {
-                ApiScreen()
+            composable(Routes.AnotherApiScreenRoute.route) {
+                AnotherApiScreen()
             }
         }
 

@@ -44,7 +44,9 @@ fun SettingsScreen() {
 fun RadioGroup() {
     val radioOptions = listOf("Dog API", "Nationalize API", "Another API")
     val prefs = customPreference(LocalContext.current, CUSTOM_PREF_NAME)
-    prefs.settings = Routes.DogScreenRoute.route
+
+    when(prefs.settings){ null -> Routes.DogScreenRoute.route }
+
     var selectedItem by remember {
         mutableStateOf(
             when(prefs.settings){

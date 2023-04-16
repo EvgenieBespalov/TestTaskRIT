@@ -28,7 +28,6 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun DogScreen(
-    navController: NavHostController,
     viewModel: DogScreenViewModel = koinViewModel()
 ){
     val state by viewModel.state.observeAsState(DogScreenUiState.Initial)
@@ -68,13 +67,13 @@ fun DogScreen(
     when(state){
         DogScreenUiState.Initial    -> Unit
         DogScreenUiState.Loading    -> ScreenLoadind()
-        is DogScreenUiState.Content -> DogScreenContent(dog = (state as DogScreenUiState.Content).dog, navController)
+        is DogScreenUiState.Content -> DogScreenContent(dog = (state as DogScreenUiState.Content).dog)
         is DogScreenUiState.Error   -> ScreenError(errorText = (state as DogScreenUiState.Error).message.orEmpty())
     }
 }
 
 @Composable
-fun DogScreenContent(dog: DogEntity, navController: NavHostController){
+fun DogScreenContent(dog: DogEntity){
     Column(modifier = Modifier.padding(top = 160.dp)) {
         CenteredRow{
             val asyncPainter =
