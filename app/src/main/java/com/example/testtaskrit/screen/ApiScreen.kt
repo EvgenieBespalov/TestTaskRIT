@@ -35,7 +35,7 @@ fun ApiScreen() {
         // Button(onClick = { navController.navigate(Routes.Dog.route) }) { Text(text = "Dog", fontSize = 25.sp) }
         // Button(onClick = { navController.navigate(Routes.Nationalize.route) }) { Text(text = "Nat", fontSize = 25.sp) }
 
-        NavHost(navController = navController, startDestination = Routes.DogScreenRoute.route) {
+        NavHost(navController = navController, startDestination = Routes.NationalizeScreenRoute.route) {
             composable(Routes.NationalizeScreenRoute.route) {
                 NationalizeScreen()
             }

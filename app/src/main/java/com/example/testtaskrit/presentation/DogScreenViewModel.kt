@@ -21,7 +21,7 @@ class DogScreenViewModel (
         }
     }
 
-    fun getDogBin(){
+    fun getDog(){
         viewModelScope.launch {
             _state.value = DogScreenUiState.Loading
 

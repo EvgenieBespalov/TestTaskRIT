@@ -9,30 +9,23 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.composable
 import coil.compose.rememberAsyncImagePainter
 import com.example.testtaskrit.domain.entity.DogEntity
 import com.example.testtaskrit.presentation.DogScreenUiState
 import com.example.testtaskrit.presentation.DogScreenViewModel
 import com.example.testtaskrit.screen.compose.theme.colorPrimaryDark
-import com.example.testtaskrit.screen.navigation.Routes
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets
 
 @Composable
 fun DogScreen(
@@ -52,7 +45,7 @@ fun DogScreen(
             Button(
                 onClick = {
                     scope.launch {
-                        viewModel.getDogBin()
+                        viewModel.getDog()
                     }
                 },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White, contentColor = Color.Black),
