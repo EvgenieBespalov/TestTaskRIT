@@ -1,4 +1,4 @@
-package com.example.testtaskrit.domain.entity
+package com.example.testtaskrit.domain.entity.dog
 
 data class DogEntity(
     var message: String,

@@ -9,7 +9,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -20,7 +19,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
-import com.example.testtaskrit.domain.entity.DogEntity
+import com.example.testtaskrit.domain.entity.dog.DogEntity
 import com.example.testtaskrit.presentation.DogScreenUiState
 import com.example.testtaskrit.presentation.DogScreenViewModel
 import com.example.testtaskrit.screen.compose.theme.colorPrimaryDark
@@ -66,9 +65,9 @@ fun DogScreen(
 
     when(state){
         DogScreenUiState.Initial    -> Unit
-        DogScreenUiState.Loading    -> DogScreenLoadind()
+        DogScreenUiState.Loading    -> ScreenLoadind()
         is DogScreenUiState.Content -> DogScreenContent(dog = (state as DogScreenUiState.Content).dog, navController)
-        is DogScreenUiState.Error   -> DogScreenError(errorText = (state as DogScreenUiState.Error).message.orEmpty())
+        is DogScreenUiState.Error   -> ScreenError(errorText = (state as DogScreenUiState.Error).message.orEmpty())
     }
 }
 
@@ -142,28 +141,4 @@ fun DogScreenContent(dog: DogEntity, navController: NavHostController){
             }
         }
     }
-}
-
-@Composable
-fun DogScreenError(errorText: String){
-    CenteredColumn {
-        Text(text = errorText)
-    }
-}
-
-@Composable
-fun DogScreenLoadind(){
-    CenteredColumn {
-        CircularProgressIndicator()
-    }
-}
-
-@Composable
-fun CenteredColumn(content: @Composable ColumnScope.() -> Unit){
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        content = content
-    )
 }

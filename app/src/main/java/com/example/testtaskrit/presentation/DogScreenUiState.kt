@@ -1,6 +1,6 @@
 package com.example.testtaskrit.presentation
 
-import com.example.testtaskrit.domain.entity.DogEntity
+import com.example.testtaskrit.domain.entity.dog.DogEntity
 
 sealed interface DogScreenUiState{
     object Initial : DogScreenUiState

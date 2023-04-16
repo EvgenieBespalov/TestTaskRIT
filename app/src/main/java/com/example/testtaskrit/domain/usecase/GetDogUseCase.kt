@@ -1,6 +1,6 @@
 package com.example.testtaskrit.domain.usecase
 
-import com.example.testtaskrit.domain.entity.DogEntity
+import com.example.testtaskrit.domain.entity.dog.DogEntity
 import com.example.testtaskrit.domain.repository.DogRepository
 
 class GetDogUseCase(private val repository: DogRepository) {
